@@ -116,6 +116,8 @@ void handleMQTT()
         //DebugTln(F("Next State: MQTT_STATE_IS_CONNECTED"));
         //First do AutoConfiguration for Homeassistant
         doAutoConfigure();
+        // birth message, sendMQTT retains by default
+        sendMQTT(CSTR(settingMQTTtopTopic), CSTR("online"), (settingMQTTtopTopic.length() + 6 + 2));
         //Subscribe to topics
         char topic[100];
         strcpy(topic, CSTR(settingMQTTtopTopic));
