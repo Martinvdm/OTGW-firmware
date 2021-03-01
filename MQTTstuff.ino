@@ -99,12 +99,12 @@ void handleMQTT()
       if (settingMQTTuser.length() == 0) 
       {
         Debug(F("without a Username/Password "));
-        MQTTclient.connect(CSTR(MQTTclientId));
+        MQTTclient.connect(CSTR(MQTTclientId), CSTR(settingMQTTtopTopic), 0, true, "offline");
       } 
       else 
       {
         Debugf("Username [%s] ", CSTR(settingMQTTuser));
-        MQTTclient.connect(CSTR(MQTTclientId), CSTR(settingMQTTuser), CSTR(settingMQTTpasswd));
+        MQTTclient.connect(CSTR(MQTTclientId), CSTR(settingMQTTuser), CSTR(settingMQTTpasswd), CSTR(settingMQTTtopTopic), 0, true, "offline");
       }
 
       //If connection was made succesful, move on to next state...
