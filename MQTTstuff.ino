@@ -221,13 +221,13 @@ String trimVal(char *in)
 } // trimVal()
 
 //===========================================================================================
-void sendMQTTData(const String item, const String json)
+void sendMQTTData(const String item, const String json, const Boolean retain = false)
 {
   if (!settingMQTTenable) return;
-  sendMQTTData(CSTR(item), CSTR(json));
+  sendMQTTData(CSTR(item), CSTR(json), retain);
 } 
 
-void sendMQTTData(const char* item, const char *json) 
+void sendMQTTData(const char* item, const char *json, const bool *retain) 
 {
 /*  
 * The maximum message size, including header, is 128 bytes by default. 
@@ -245,7 +245,7 @@ void sendMQTTData(const char* item, const char *json)
   snprintf(topic, sizeof(topic), "%s/", CSTR(settingMQTTtopTopic));
   strlcat(topic, item, sizeof(topic));
   //DebugTf("Sending MQTT: TopicId [%s] Message [%s]\r\n", topic, json);
-  if (!MQTTclient.publish(topic, json, true)) DebugTln("MQTT publish failed.");
+  if (!MQTTclient.publish(topic, json, retain)) DebugTln("MQTT publish failed.");
   feedWatchDog();//feed the dog
 } // sendMQTTData()
 
